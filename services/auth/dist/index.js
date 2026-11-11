@@ -1,0 +1,20 @@
+import express from "express";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+import authRoute from "./routes/auth.js";
+dotenv.config();
+const result = dotenv.config();
+import cors from "cors";
+console.log("ENV FILE ERROR:", result.error);
+console.log("JWT_SEC loaded:", Boolean(process.env.JWT_SEC));
+console.log("JWT_SEC length:", process.env.JWT_SEC?.length ?? 0);
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use("/api/auth", authRoute);
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => {
+    console.log(`Auth service is running on port ${PORT}`);
+    console.log("MONGO_URI:", process.env.MONGO_URI);
+    connectDB();
+});
