@@ -15,7 +15,7 @@ export const loginUser = TryCatch(async (req, res) => {
     const { name, email, picture } = userRes.data;
     let user = await User.findOne({ email });
     if (!user) {
-         user = await User.create({
+        user = await User.create({
             name,
             email,
             image: picture,

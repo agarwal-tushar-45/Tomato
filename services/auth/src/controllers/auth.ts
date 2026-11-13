@@ -31,7 +31,7 @@ export const loginUser=TryCatch(async (req,res)=>{
     let user=await User.findOne({email});
 
     if(!user){
-       let user=await User.create({
+        user=await User.create({
         name,
         email,
         image: picture,
