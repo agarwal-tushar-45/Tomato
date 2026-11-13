@@ -3,6 +3,7 @@ import { useAppData } from "../context/AppContext";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { restaurantService } from "../main";
+import { BiMapPin, BiUpload } from "react-icons/bi";
 
 
 const AddRestaurant = () => {
@@ -57,6 +58,27 @@ const AddRestaurant = () => {
         <input type="text" placeholder="Restaurant name" value={name} onChange={e=>setName(e.target.value)} className="w-full rounded-lg border px-4 py-2 text-sm outline-none" />
         
         <input type="number" placeholder="Contact Number" value={phone} onChange={e=>setPhone(e.target.value)} className="w-full rounded-lg border px-4 py-2 text-sm outline-none" />
+         
+        <textarea placeholder="Restaurant Description" value={description} onChange={e=>setDescription(e.target.value)} className="w-full rounded-lg border px-4 py-2 text-sm outline-none" />
+       
+       <label className="flex cursor-pointer items-center gap-3 rounded-lg border p-4 text-sm text-gray-600 hover:bg-gray-50"><BiUpload className="h-5 w-5 text-red-500"/>
+       {image?image.name : "Uplaod restaurant image"}
+       <input type="file" accept="image/*" hidden onChange={e=> setImage(e.target.files?.[0] || null)}/>
+       </label>
+
+       <div className="flex items-start gap-3 rounded-lg border p-4">
+        <BiMapPin className="mt-0.5 h-5 w-5 text-red-500" />
+        <div className="text-sm">
+          {
+          loadingLocation ? "Fetching Your Location..." : location?.formattedAddress || "Location not available"
+        }
+        </div>
+        
+
+       </div>
+
+       <button className="w-full rounded-lg py-3 text-sm font-semibold text-white bg-[#e23744]" disabled={submitting} onClick={handleSubmit}>{submitting?"Submitting...":"Add Restaurant"}</button>
+
 
       </div>
 
